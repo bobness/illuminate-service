@@ -3,6 +3,8 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const { Pool } = require("pg");
+const http = require("http");
+const dotenv = require("dotenv");
 
 const app = express();
 
@@ -64,6 +66,12 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.send("error");
+});
+
+const server = http.createServer(app);
+server.listen(process.env.PORT || 8889);
+server.on("listening", () => {
+  console.log("Listening on ", server.address());
 });
 
 module.exports = app;
