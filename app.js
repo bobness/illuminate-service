@@ -10,6 +10,10 @@ const app = express();
 
 app.use(cors());
 
+app.use("/status", (req, res, next) => {
+  return res.send({ status: "ok" });
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
